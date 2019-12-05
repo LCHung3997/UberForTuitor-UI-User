@@ -75,21 +75,21 @@ class TeachingInfor extends React.PureComponent {
 
 	onSubmitInforTeaching = (e) => {
 		e.preventDefault();
-		// const { registerTeachingRequest, stringTag, nameAvatar } = this.props;
+		const { registerTeachingRequest, stringTag, nameAvatar } = this.props;
 
-		// console.log('onSubmitInforTeaching nameAvatar', nameAvatar.name);
-		// const tokenn = localStorage.token;
-		// let decoded = null;
-		// let gmail = '';
-		// const avatar = `http://localhost:3001/images/${nameAvatar.name}`;
-		// const intro = document.getElementById('intro').value;
-		// const price = document.getElementById('price').value;
-		// if (tokenn) {
-		// 	decoded = jwtDecode(tokenn);
-		// 	gmail = decoded.gmail;
-		// }
+		console.log('onSubmitInforTeaching nameAvatar', nameAvatar.name);
+		const tokenn = localStorage.token;
+		let decoded = null;
+		let gmail = '';
+		const avatar = `http://localhost:3001/images/${nameAvatar.name}`;
+		const intro = document.getElementById('intro').value;
+		const price = document.getElementById('price').value;
+		if (tokenn) {
+			decoded = jwtDecode(tokenn);
+			gmail = decoded.gmail;
+		}
 
-		// registerTeachingRequest(gmail, intro, stringTag, price, avatar);
+		registerTeachingRequest(gmail, intro, stringTag, price, avatar);
 	}
 
 	render() {
@@ -196,7 +196,7 @@ class TeachingInfor extends React.PureComponent {
 											className="select-form"
 											onChange={this.onChangeSelection}
 											id="selectedTagList"
-											required
+											
 										>
 											{/* <option className="black-title" value="software">
                       Công nghệ phần mềm
