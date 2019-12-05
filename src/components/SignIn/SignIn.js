@@ -35,11 +35,11 @@ class Login extends React.PureComponent {
 
 		console.log('gmail, password:', gmail, password);
 		Promise.resolve(loginRequest(gmail, password)).then(() => {
-			const { user } = localStorage;
+			const user = JSON.parse(localStorage.getItem('user'));
 			if (user) {
 				if (user.categoryUser === 1) {
 					if (user.state === 1) {
-						if (user.introduce === null) {
+						if (user.introduce === "") {
 							history.push('/teaching');
 							window.location.reload();
 						} else {
@@ -81,7 +81,10 @@ class Login extends React.PureComponent {
         method: "POST",
         body: tokenBlob,
         mode: "cors",
-        cache: "default"
+		cache: "default",
+		headers: {
+			Accept: 'application/json', 'Content-Type': 'application/json',
+		},
       };
       fetch("http://localhost:3001/api/auth/facebook", options).then(r => {
         const token = r.headers.get("x-auth-token");
