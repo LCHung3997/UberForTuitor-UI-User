@@ -1,24 +1,33 @@
 import { connect } from 'react-redux';
 import TeacherInfor from '../pages/TeacherInfoPage';
 import {
-  getInforUserById,
+  getUserInfor,
   listNameSkill,
   listTeacherTop,
-  getCityByIdDistrict
+  getCityByIdDistrict,
+  getListDisctrict,
+  filterSkillTeacher,
+  getUserComment,
+  getSingleTeacherById
 } from '../actions/userAction';
 
 const mapStateToProps = (state) => ({
   detailTeacher: state.detailTeacher,
-  nameSkill: state.listNameSkill,
+  listNameOfSkill: state.listNameOfSkill,
   listTeachers: state.listTeachers,
-  cityName: state.cityName
+  cityName: state.cityName,
+  listDistrict: state.listDistrict,
+  userComment: state.userComment
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getInforUserById: (id) => dispatch(getInforUserById(id)),
+  getSingleTeacherById: (id) => dispatch(getSingleTeacherById(id)),
+  getUserInfor: (id) => dispatch(getUserInfor(id)),
   listNameSkill: (id) => dispatch(listNameSkill(id)),
   listTeacherTop: () => dispatch(listTeacherTop()),
-  getCityByIdDistrict: (id) => dispatch(getCityByIdDistrict(id))
-  // loginRequest: (gmail, password) => dispatch(loginRequest(gmail, password)),
+  getCityByIdDistrict: (id) => dispatch(getCityByIdDistrict(id)),
+  getListDisctrict: () => dispatch(getListDisctrict()),
+  filterSkillTeacher: () => dispatch(filterSkillTeacher()),
+  getUserComment: (idTeacher) => dispatch(getUserComment(idTeacher)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(TeacherInfor);

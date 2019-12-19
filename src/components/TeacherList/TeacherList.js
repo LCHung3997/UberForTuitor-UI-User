@@ -1,17 +1,21 @@
+/* eslint-disable react/jsx-no-bind */
+/* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import './TeacherList.css';
 import {
   Container, Row, Col, Form
 } from 'react-bootstrap';
-import CardTuitor from '../../containers/CardTuitorContainer';
+import './TeacherList.css';
+import CardTuitor from '../CardTuitor';
 import star from '../../public/images/star.png';
 
 class TeacherList extends React.PureComponent {
   // eslint-disable-next-line react/no-deprecated
   componentWillMount = () => {
-    const { getListTeacher, getListCity } = this.props;
+    const { getListTeacher, getListCity, getListSkills } = this.props;
     getListTeacher();
     getListCity();
+    getListSkills();
   };
 
   onChangeCity = (e) => {
@@ -80,9 +84,18 @@ class TeacherList extends React.PureComponent {
     getTeacherByDistrict(id);
   };
 
+  onChangeSkills = (obj) => {
+    const id = obj.target.value;
+    const { filterSkillTeacher } = this.props;
+    filterSkillTeacher(id);
+    // getTeaacherBySkill
+  };
+
   render() {
-    const { listTeachers, listCity, districtNames } = this.props;
-    // console.log('cityListcityListcityList', listNameSkill);
+    const {
+      listTeachers, listCity, districtNames, listSkills
+    } = this.props;
+    // console.log("listSkillslistSkillslistSkills", listTeachers);
     return (
       <Container>
         <div className="flex-nowrap">
@@ -204,7 +217,7 @@ class TeacherList extends React.PureComponent {
                         </label>
                       </Form>
 
-                      <b className="">
+                      <b className="mt-3">
                         <i className="fa fa-fish" />
                         Rating:
                       </b>
@@ -218,7 +231,9 @@ class TeacherList extends React.PureComponent {
                             id="star1"
                             name="radSort"
                             onClick={this.filterByOneStars}
-                          />
+                            style={{ cursor: 'pointer' }}
+                          >
+                          </Form.Check>
                           <img className="img-star" alt="star" src={star} />
                         </div>
 
@@ -282,12 +297,12 @@ class TeacherList extends React.PureComponent {
                         </div>
                       </Form>
 
-                      <b className="">
+                      <b className="mt-3">
                         <i className="fa fa-fish" />
                         Theo địa điểm:
                       </b>
                       <Form className="pl-3">
-                        <div className="pt-3">
+                        <div className="">
                           Tỉnh:
                           <Form.Control
                             as="select"
@@ -296,7 +311,6 @@ class TeacherList extends React.PureComponent {
                             required
                             onChange={this.onChangeCity}
                           >
-                            <option value="0" className="black-title" />
                             {listCity
                               ? listCity.map((item) => (
                                 <option
@@ -315,13 +329,39 @@ class TeacherList extends React.PureComponent {
                             as="select"
                             className="select-form-city"
                             id="selectDistrict"
-                            required
                             onChange={this.onChangeDistrict.bind(this)}
                           >
                             {districtNames.length !== 0
                               ? districtNames.map((item) => (
                                 <option
                                   value={item.districtId}
+                                  className="black-title"
+                                >
+                                  {item.name}
+                                </option>
+                              ))
+                              : null}
+                          </Form.Control>
+                        </div>
+                      </Form>
+
+                      <b className="mt-3">
+                        <i className="fa fa-fish" />
+                        Theo kỹ năng:
+                      </b>
+                      <Form className="pl-3">
+                        <div className="">
+                          <Form.Control
+                            as="select"
+                            className="select-form-city"
+                            id="selectSkills"
+                            onChange={this.onChangeSkills.bind(this)}
+                          >
+                            <option value="0" className="black-title" />
+                            {listSkills
+                              ? listSkills.map((item) => (
+                                <option
+                                  value={item.skillId}
                                   className="black-title"
                                 >
                                   {item.name}

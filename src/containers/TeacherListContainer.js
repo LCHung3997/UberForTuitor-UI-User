@@ -1,5 +1,5 @@
-import { connect } from "react-redux";
-import TeacherList from "../components/TeacherList/TeacherList";
+import { connect } from 'react-redux';
+import TeacherList from '../components/TeacherList/TeacherList';
 import {
   getListTeacher,
   getListCity,
@@ -15,19 +15,22 @@ import {
   filterByThreeStar,
   filterByFourStar,
   filterByFiveStar,
-  getTeacherByDistrict
-} from "../actions/userAction";
+  getTeacherByDistrict,
+  getListSkills,
+  filterSkillTeacher
+} from '../actions/userAction';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   listTeachers: state.listTeachers,
   listCity: state.listCity,
-  districtNames: state.districtNames
+  districtNames: state.districtNames,
+  listSkills: state.listSkills
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getListTeacher: () => dispatch(getListTeacher()),
   getListCity: () => dispatch(getListCity()),
-  getDistrictByIdCity: idCity => dispatch(getDistrictByIdCity(idCity)),
+  getDistrictByIdCity: (idCity) => dispatch(getDistrictByIdCity(idCity)),
   sortIncreaseByPrice: () => dispatch(sortIncreaseByPrice()),
   sortDecreaseByPrice: () => dispatch(sortDecreaseByPrice()),
   sortDecreaseByRateSuccess: () => dispatch(sortDecreaseByRateSuccess()),
@@ -40,6 +43,8 @@ const mapDispatchToProps = dispatch => ({
   filterByFourStar: () => dispatch(filterByFourStar()),
   filterByFiveStar: () => dispatch(filterByFiveStar()),
   getTeacherByDistrict: (id) => dispatch(getTeacherByDistrict(id)),
+  getListSkills: () => dispatch(getListSkills()),
+  filterSkillTeacher: (id) => dispatch(filterSkillTeacher(id)),
 
 });
 export default connect(mapStateToProps, mapDispatchToProps)(TeacherList);
