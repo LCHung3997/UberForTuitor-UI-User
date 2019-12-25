@@ -1,5 +1,7 @@
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
 import React from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 import numeral from 'numeral';
 import Swal from 'sweetalert2';
 import history from '../history';
@@ -113,7 +115,7 @@ export class TeacherInfoPage extends React.PureComponent {
                     ? listDistrict.map((item) => {
                       if (item.districtId === detailTeacher.districtId) {
                         return (
-                          `, ${item.name},`
+                          `${item.name},`
                         );
                       }
                     })
@@ -309,21 +311,24 @@ export class TeacherInfoPage extends React.PureComponent {
                   {detailTeacher.rateSuccess <= 20
                     && detailTeacher.rateSuccess > 0 ? (
                       <div className="stars mt-2">
-                        <li>
-                          <span className="fa fa-star" aria-hidden="true" />
-                        </li>
-                        <li>
-                          <span className="fa fa-star-o" aria-hidden="true" />
-                        </li>
-                        <li>
-                          <span className="fa fa-star-o" aria-hidden="true" />
-                        </li>
-                        <li>
-                          <span className="fa fa-star-o" aria-hidden="true" />
-                        </li>
-                        <li>
-                          <span className="fa fa-star-o" aria-hidden="true" />
-                        </li>
+                        <p>
+                          <li>
+                            <span className="fa fa-star" aria-hidden="true" />
+                          </li>
+                          <li>
+                            <span className="fa fa-star-o" aria-hidden="true" />
+                          </li>
+                          <li>
+                            <span className="fa fa-star-o" aria-hidden="true" />
+                          </li>
+                          <li>
+                            <span className="fa fa-star-o" aria-hidden="true" />
+                          </li>
+                          <li>
+                            <span className="fa fa-star-o" aria-hidden="true" />
+                          </li>
+                        </p>
+                        {detailTeacher.rateCS ? (
                         <span
                           style={{
                             fontWeight: '200',
@@ -331,8 +336,12 @@ export class TeacherInfoPage extends React.PureComponent {
                             marginLeft: '5px'
                           }}
                         >
-                          3 đánh giá
+                          Tỉ lệ thành công:
+                        {' '}
+                          {detailTeacher.rateCS}
+                          %
                         </span>
+                      ) : null}
                       </div>
                     ) : null}
                   {detailTeacher.rateSuccess <= 40
@@ -353,6 +362,7 @@ export class TeacherInfoPage extends React.PureComponent {
                         <li>
                           <span className="fa fa-star-o" aria-hidden="true" />
                         </li>
+                        {detailTeacher.rateCS ? (
                         <span
                           style={{
                             fontWeight: '200',
@@ -360,8 +370,12 @@ export class TeacherInfoPage extends React.PureComponent {
                             marginLeft: '5px'
                           }}
                         >
-                          3 đánh giá
+                          Tỉ lệ thành công:
+                        {' '}
+                          {detailTeacher.rateCS}
+                          %
                         </span>
+                      ) : null}
                       </div>
                     ) : null}
                   {detailTeacher.rateSuccess <= 60
@@ -382,6 +396,7 @@ export class TeacherInfoPage extends React.PureComponent {
                         <li>
                           <span className="fa fa-star-o" aria-hidden="true" />
                         </li>
+                        {detailTeacher.rateCS ? (
                         <span
                           style={{
                             fontWeight: '200',
@@ -389,28 +404,36 @@ export class TeacherInfoPage extends React.PureComponent {
                             marginLeft: '5px'
                           }}
                         >
-                          3 đánh giá
+                          Tỉ lệ thành công:
+                        {' '}
+                          {detailTeacher.rateCS}
+                          %
                         </span>
+                      ) : null}
                       </div>
                     ) : null}
                   {detailTeacher.rateSuccess <= 80
                     && detailTeacher.rateSuccess > 60 ? (
                       <div className="stars mt-2">
-                        <li>
-                          <span className="fa fa-star" aria-hidden="true" />
-                        </li>
-                        <li>
-                          <span className="fa fa-star" aria-hidden="true" />
-                        </li>
-                        <li>
-                          <span className="fa fa-star" aria-hidden="true" />
-                        </li>
-                        <li>
-                          <span className="fa fa-star" aria-hidden="true" />
-                        </li>
-                        <li>
-                          <span className="fa fa-star-o" aria-hidden="true" />
-                        </li>
+                        <p>
+
+                          <li>
+                            <span className="fa fa-star" aria-hidden="true" />
+                          </li>
+                          <li>
+                            <span className="fa fa-star" aria-hidden="true" />
+                          </li>
+                          <li>
+                            <span className="fa fa-star" aria-hidden="true" />
+                          </li>
+                          <li>
+                            <span className="fa fa-star" aria-hidden="true" />
+                          </li>
+                          <li>
+                            <span className="fa fa-star-o" aria-hidden="true" />
+                          </li>
+                        </p>
+                        {detailTeacher.rateCS ? (
                         <span
                           style={{
                             fontWeight: '200',
@@ -418,8 +441,12 @@ export class TeacherInfoPage extends React.PureComponent {
                             marginLeft: '5px'
                           }}
                         >
-                          3 đánh giá
+                          Tỉ lệ thành công:
+                        {' '}
+                          {detailTeacher.rateCS}
+                          %
                         </span>
+                      ) : null}
                       </div>
                     ) : null}
                   {detailTeacher.rateSuccess > 80 ? (
@@ -439,15 +466,21 @@ export class TeacherInfoPage extends React.PureComponent {
                       <li>
                         <span className="fa fa-star" aria-hidden="true" />
                       </li>
-                      <span
-                        style={{
-                          fontWeight: '200',
-                          fontSize: 'small',
-                          marginLeft: '5px'
-                        }}
-                      >
-                        3 đánh giá
-                      </span>
+                      {detailTeacher.rateCS ? (
+                        <span
+                          style={{
+                            fontWeight: '200',
+                            fontSize: 'small',
+                            marginLeft: '5px'
+                          }}
+                        >
+                          Tỉ lệ thành công:
+                        {' '}
+                          {detailTeacher.rateCS}
+                          %
+                        </span>
+                      ) : null}
+
                     </div>
                   ) : null}
 

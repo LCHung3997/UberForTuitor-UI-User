@@ -13,13 +13,13 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getContractByUserId: (idUser) => dispatch(getContractByUserId(idUser)),
-    getContractByTeacherId: (id) => dispatch(getContractByTeacherId(id)),
-    filterContractsOfTeacher: (idUser, idState) => dispatch(
-        filterContractsOfTeacher(idUser, idState)
+    getContractByUserId: (idUser, page) => dispatch(getContractByUserId(idUser, page)),
+    getContractByTeacherId: (id, page) => dispatch(getContractByTeacherId(id, page)),
+    filterContractsOfTeacher: (idUser, idState, page) => dispatch(
+        filterContractsOfTeacher(idUser, idState, page)
     ),
-    filterContractsOfStudent: (idUser, idState) => dispatch(
-        filterContractsOfStudent(idUser, idState)
+    filterContractsOfStudent: (idUser, idState, page) => dispatch(
+        filterContractsOfStudent(idUser, idState, page)
     ),
     updateStateContract: (idContract, state) => dispatch(updateStateContract(idContract, state))
 });

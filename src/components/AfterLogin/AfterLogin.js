@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
-import jwtDecode from 'jwt-decode';
+// import jwtDecode from 'jwt-decode';
 import avatar1 from '../../public/images/avatar.jpg';
 import './AfterLogin.css';
 
@@ -10,16 +10,13 @@ class AfterLogin extends React.PureComponent {
 	componentWillMount = () => {
 		const { getUserInfor } = this.props;
 		const user = JSON.parse(localStorage.getItem('user'));
-		console.log('user', user);
+		// console.log('user', user);
 		getUserInfor(user.userId);
 	}
 
 	render() {
 		const tokenn = localStorage.token;
-		let decoded = null;
-		if (tokenn) {
-			decoded = jwtDecode(tokenn);
-		}
+
 		const { signOut, userProfiles } = this.props;
 		// console.log('userProfiles', userProfiles);
 		return (
@@ -28,9 +25,9 @@ class AfterLogin extends React.PureComponent {
 					<Dropdown>
 						<Dropdown.Toggle id="dropdown-basic">
 							<div className="d-flex flex-row justify-content-around ">
-								<div style={{ width: '40px', height: '30px' }}>
+								<div style={{ width: '40px' }}>
 									<img
-										style={{ width: '100%', borderRadius: '50%' }}
+										style={{ width: '100%', borderRadius: '10px' }}
 										alt="avatar"
 										src={userProfiles.avatar ? `${userProfiles.avatar}` : `${avatar1}`}
 									/>
@@ -48,15 +45,15 @@ class AfterLogin extends React.PureComponent {
 										{userProfiles.name}
 										{' '}
 										&#x25bc;
-								</div>
+									</div>
 								) : (
 										<div className="d-flex flex-row justify-content-end">
 											<NavLink to="/signin" className="nav-link signIn">
 												Đăng nhập
-										</NavLink>
+											</NavLink>
 											<NavLink to="/signup" className="nav-link signUp">
 												Đăng Ký
-										</NavLink>
+											</NavLink>
 										</div>
 									)}
 							</div>

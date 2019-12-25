@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Button } from 'react-bootstrap';
 import numeral from 'numeral';
 import Swal from 'sweetalert2';
+import jwtDecode from 'jwt-decode';
 import history from '../history';
 import './CardTuitor.css';
 import avatar from '../public/images/avatar.jpg';
@@ -35,13 +36,19 @@ class Card extends React.PureComponent {
 
   render() {
     const { listTeachers, style } = this.props;
-    // console.log('3333333333333333333s3', listTeachers);
-    // console.log('listTeacherslistTeacherslistTeachers', nameSkill[0]);
+    const tokenn = localStorage.token;
+    let decoded = null;
+    if (tokenn) {
+      decoded = jwtDecode(tokenn);
+    }
     return (
       <div style={style}>
         {listTeachers ? (
           <div className="cardTuitor">
-            <img src={listTeachers.avatar ? listTeachers.avatar : avatar} alt="avatar" />
+            <img
+              src={listTeachers.avatar ? listTeachers.avatar : avatar}
+              alt="avatar"
+            />
             <div className="cardCaption">
               <div className="cardInfo">
                 <h6>{listTeachers.name}</h6>
@@ -53,6 +60,25 @@ class Card extends React.PureComponent {
                   {' '}
                   VND/giờ
                 </div>
+                {listTeachers.rateSuccess === null ? (
+                  <div className="stars mt-2">
+                    <li>
+                      <span className="fa fa-star-o" aria-hidden="true" />
+                    </li>
+                    <li>
+                      <span className="fa fa-star-o" aria-hidden="true" />
+                    </li>
+                    <li>
+                      <span className="fa fa-star-o" aria-hidden="true" />
+                    </li>
+                    <li>
+                      <span className="fa fa-star-o" aria-hidden="true" />
+                    </li>
+                    <li>
+                      <span className="fa fa-star-o" aria-hidden="true" />
+                    </li>
+                  </div>
+                ) : null}
                 {listTeachers.rateSuccess <= 20
                   && listTeachers.rateSuccess > 0 ? (
                     <div className="stars mt-2">
@@ -162,15 +188,19 @@ class Card extends React.PureComponent {
                   >
                     Thông Tin
                   </Button>
-                  <Button
-                    variant="danger"
-                    className="mx-2"
-                    size="sm"
-                    // eslint-disable-next-line react/jsx-no-bind
-                    onClick={this.onClickHire.bind(this, listTeachers.userId)}
-                  >
-                    Thuê Ngay
-                  </Button>
+
+                  {!decoded || decoded.categoryUser === 0
+                    ? (
+                      <Button
+                        variant="danger"
+                        className="mx-2"
+                        size="sm"
+                        // eslint-disable-next-line react/jsx-no-bind
+                        onClick={this.onClickHire.bind(this, listTeachers.userId)}
+                      >
+                        Thuê Ngay
+                      </Button>
+                    ) : null}
                 </div>
               </div>
             </div>

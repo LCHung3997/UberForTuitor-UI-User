@@ -97,7 +97,7 @@ class TeacherList extends React.PureComponent {
     } = this.props;
     // console.log("listSkillslistSkillslistSkills", listTeachers);
     return (
-      <Container>
+      <Container className="bodyChat">
         <div className="flex-nowrap">
           <div className="mt-5em">
             <div className="title">
@@ -378,14 +378,16 @@ class TeacherList extends React.PureComponent {
             </Row>
           </div>
           <div className="col-md-9 col-sm-9 mt-5 mb-5">
-            {listTeachers ? (
+            {listTeachers.length !== 0 ? (
               listTeachers.map((item) => (
+
                 <div className="col-md-4 col-sm-4">
                   <CardTuitor listTeachers={item} />
                 </div>
+
               ))
             ) : (
-                <h1>Không có trong danh sách</h1>
+                <div className="loader" style={{ margin: 'auto' }} />
               )}
           </div>
         </div>

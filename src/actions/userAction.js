@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
 import Swal from 'sweetalert2';
 import API from '../service/api';
 import history from '../history';
@@ -353,8 +355,21 @@ export const getInforUserById = (id) => (dispatch) => fetch(
 }
 ).then((respond) => respond.json())
   .then(async (userInfor) => {
-    console.log('getInforUserById', userInfor);
+    // console.log('getInforUserById', userInfor);
     await dispatch({ type: 'GET_USER_INFO_BY_ID', userInfor });
+  }).catch((err) => console.log('Error getInforUserById occured', err));
+
+export const getChatInforUserById = (id) => (dispatch) => fetch(
+  API.GET_USER_INFO_BY_ID + id, {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  },
+}
+).then((respond) => respond.json())
+  .then(async (userInfor) => {
+    // console.log('getInforUserById', userInfor);
+    await dispatch({ type: 'GET_CHAT_USER_INFO_BY_ID', userInfor });
   }).catch((err) => console.log('Error getInforUserById occured', err));
 
 export const listTeacherTop = () => (dispatch) => fetch(API.GET_TEACHERS_TOP, {
@@ -408,12 +423,15 @@ export const sortDecreaseByPrice = () => (dispatch) => fetch(API.GET_TEACHERS_PR
     dispatch({ type: 'GET_TEACHERS_PRICE_DECREASE', teacher });
   })
   .catch((err) => console.log('Error getListTeacher occured', err));
-export const sortDecreaseByRateSuccess = () => (dispatch) => fetch(API.GET_TEACHERS_REATESUCCESS_DECREASE, {
+
+export const sortDecreaseByRateSuccess = () => (dispatch) => fetch(
+  API.GET_TEACHERS_REATESUCCESS_DECREASE, {
   method: 'GET',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
-})
+}
+)
   .then((respond) => respond.json())
   .then((teacher) => {
     // console.log('getListTeacher', res);
@@ -656,9 +674,9 @@ export const createContract = (
     numberHour
   })
 })
-  .then((respond) => {
+  .then(async (respond) => {
     if (respond.status === 200) {
-      Swal.fire({
+      await Swal.fire({
         icon: 'success',
         title: 'Đăng Kí Thành Công',
         text:
@@ -691,8 +709,8 @@ export const createContract = (
 //   })
 //   .catch((err) => console.log('Error getAllContracts occured', err));
 
-export const getContractByUserId = (idUser) => (dispatch) => fetch(
-  API.GET_CONTRACT_BY_USER_ID + idUser, {
+export const getContractByUserId = (idUser, page) => (dispatch) => fetch(
+  `${API.GET_CONTRACT_BY_USER_ID + idUser}?page=${page}`, {
   method: 'GET',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
@@ -701,13 +719,14 @@ export const getContractByUserId = (idUser) => (dispatch) => fetch(
 )
   .then((respond) => respond.json())
   .then((res) => {
+    console.log('1111111111111111111222222222', res);
     // console.log('getContractByUserId', res);
     dispatch({ type: 'GET_CONTRACT_BY_USER_ID', contractByIdUser: res });
   })
   .catch((err) => console.log('Error getContractByUserId occured', err));
 
-export const getContractByTeacherId = (idUser) => (dispatch) => fetch(
-  API.GET_CONTRACT_BY_TEACHER_ID + idUser, {
+export const getContractByTeacherId = (idUser, page) => (dispatch) => fetch(
+  `${API.GET_CONTRACT_BY_TEACHER_ID + idUser}?page=${page}`, {
   method: 'GET',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
@@ -717,7 +736,11 @@ export const getContractByTeacherId = (idUser) => (dispatch) => fetch(
   .then((respond) => respond.json())
   .then((res) => {
     console.log('getContractByTeacherId', res);
-    dispatch({ type: 'GET_CONTRACT_BY_TEACHER_ID', contractByIdTeacher: res });
+    if (!res.message) {
+      dispatch({ type: 'GET_CONTRACT_BY_TEACHER_ID', contractByIdTeacher: res });
+    } else {
+      dispatch({ type: 'GET_CONTRACT_BY_TEACHER_ID', contractByIdTeacher: [] });
+    }
   })
   .catch((err) => console.log('Error getContractByTeacherId occured', err));
 
@@ -770,8 +793,8 @@ export const updateStateContract = (
   // .then((status) => dispatch(userProfile(name, gmail, categoryUser)))
   .catch((err) => console.log('Error updateStateContract occured', err));
 
-export const filterContractsOfStudent = (idUser, idState) => (dispatch) => fetch(
-  `${API.FILTER_LIST_CONTRACT_STUDENT + idUser}?idState=${idState}`, {
+export const filterContractsOfStudent = (idUser, idState, page) => (dispatch) => fetch(
+  `${API.FILTER_LIST_CONTRACT_STUDENT + idUser}?idState=${idState}&page=${page}`, {
   method: 'GET',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
@@ -789,8 +812,8 @@ export const filterContractsOfStudent = (idUser, idState) => (dispatch) => fetch
   })
   .catch((err) => console.log('Error filterContractsOfStudent occured', err));
 
-export const filterContractsOfTeacher = (idUser, idState) => (dispatch) => fetch(
-  `${API.FILTER_LIST_CONTRACT_TEACHER + idUser}?idState=${idState}`, {
+export const filterContractsOfTeacher = (idUser, idState, page) => (dispatch) => fetch(
+  `${API.FILTER_LIST_CONTRACT_TEACHER + idUser}?idState=${idState}&page=${page}`, {
   method: 'GET',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
@@ -911,6 +934,91 @@ export const getMailByKeyPass = (keypass) => (dispatch) => fetch(
   .then((response) => response.json())
   .then((result) => {
     dispatch({ type: 'GET_KEY_PASS', result });
+  })
+  .catch((error) => {
+    throw error;
+  });
+
+export const getMoneyEachDay = (idTeacher) => (dispatch) => fetch(
+  API.GET_SUM_MONEY_EACH_DAY + idTeacher, {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+  }
+}
+)
+  .then((response) => response.json())
+  .then((moneyEachDay) => {
+    console.log('moneyEachDay action', moneyEachDay);
+    dispatch({ type: 'MONEY_EACH_DAY', moneyEachDay });
+  })
+  .catch((error) => {
+    throw error;
+  });
+
+export const getTotalContracts = (idTeacher) => (dispatch) => fetch(
+  API.GET_TOTAL_CONTRACTS + idTeacher, {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+  }
+}
+)
+  .then((response) => response.json())
+  .then((total) => {
+    console.log('getTotalContracts action', total);
+    dispatch({ type: 'GET_TOTAL_CONTRACTS', total });
+  })
+  .catch((error) => {
+    throw error;
+  });
+
+export const getSumEachMonth = (idTeacher) => (dispatch) => fetch(
+  API.GET_SUM_EACHMONTH + idTeacher, {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+  }
+}
+)
+  .then((response) => response.json())
+  .then((total) => {
+    console.log('getSumEachMonth action', total);
+    dispatch({ type: 'GET_SUM_EACHMONTH', total });
+  })
+  .catch((error) => {
+    throw error;
+  });
+
+export const getSumEachYear = (idTeacher) => (dispatch) => fetch(
+  API.GET_SUM_EACHYEAR + idTeacher, {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+  }
+}
+)
+  .then((response) => response.json())
+  .then((sum) => {
+    console.log('getSumEachYear action', sum);
+    dispatch({ type: 'GET_SUM_EACHYEAR', sum });
+  })
+  .catch((error) => {
+    throw error;
+  });
+
+export const getTotalPriceAndContract = (idTeacher) => (dispatch) => fetch(
+  API.GET_TOTAL_PRICE_AND_CONTRACT + idTeacher, {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+  }
+}
+)
+  .then((response) => response.json())
+  .then((total) => {
+    console.log('getTotalPriceAndContract action', total);
+    dispatch({ type: 'GET_TOTAL_PRICE_AND_CONTRACT', total });
   })
   .catch((error) => {
     throw error;

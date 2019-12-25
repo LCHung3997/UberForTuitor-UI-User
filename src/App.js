@@ -12,7 +12,9 @@ import TeacherInfoPage from './containers/TeacherInforContainer';
 import TeacherList from './containers/TeacherListContainer';
 import NewPassword from './containers/NewPasswordContainer';
 import Contract from './containers/ContractContainer';
-// import Test from './components/test';
+import Chat from './containers/messageContainer';
+import Statistics from './containers/StatisticsContainer';
+
 
 export class App extends React.PureComponent {
 	render() {
@@ -21,6 +23,10 @@ export class App extends React.PureComponent {
 			<main>
 				<Header />
 				<Switch>
+					<Route path="/chat/:id">
+						{localStorage.token ? <Chat /> : <PageNotFound /> }
+					</Route>
+					<Route path="/statistics" exact component={Statistics} />
 					<Route path="/contract-:id" exact component={Contract('ReadOnlyContract')} />
 					<Route path="/contract/teacher-:id" exact component={Contract('Contract')} />
 					<Route path="/teacherslist" exact component={TeacherList} />

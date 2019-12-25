@@ -81,7 +81,7 @@ class TeachingInfor extends React.PureComponent {
 		const tokenn = localStorage.token;
 		let decoded = null;
 		let gmail = '';
-		const avatar = `http://localhost:3001/images/${nameAvatar.name}`;
+		const avatar = `https://uber-for-tuitor-api-user.herokuapp.com/images/${nameAvatar.name}`;
 		const intro = document.getElementById('intro').value;
 		const price = document.getElementById('price').value;
 		if (tokenn) {
