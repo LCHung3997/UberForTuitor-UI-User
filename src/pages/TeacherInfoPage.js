@@ -112,6 +112,7 @@ export class TeacherInfoPage extends React.PureComponent {
                   </span>
                   {detailTeacher.address}
                   ,
+      {' '}
 {listDistrict
                     ? listDistrict.map((item) => {
                       if (item.districtId === detailTeacher.districtId) {
