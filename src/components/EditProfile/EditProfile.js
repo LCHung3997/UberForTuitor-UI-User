@@ -102,7 +102,7 @@ class EditProfile extends React.PureComponent {
 
     let avatar = '';
     if (currentUser.avatar === '' || currentUser.avatar === null) {
-      avatar = `http://localhost:3001/images/${nameAvatar}`;
+      avatar = `https://uber-for-tuitor-api-user.herokuapp.com/images/${nameAvatar}`;
     } else {
       avatar = currentUser.avatar;
     }
