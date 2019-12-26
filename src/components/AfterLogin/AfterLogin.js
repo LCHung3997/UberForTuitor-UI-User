@@ -63,13 +63,13 @@ class AfterLogin extends React.PureComponent {
 							<Dropdown.Item href="/Settings#myinformation">
 								<i className="fas fa-user-cog" />
 								{' '}
-								Settings
+								Cài đặt
 								{' '}
 							</Dropdown.Item>
 							<Dropdown.Item href="/" onClick={signOut}>
 								<i className="fas fa-sign-out-alt" />
 								{' '}
-								Log Out
+								Đăng xuất
 							</Dropdown.Item>
 						</Dropdown.Menu>
 					</Dropdown>

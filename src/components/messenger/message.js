@@ -70,25 +70,29 @@ export default class FormMessage extends Component {
   }
 
   listenFriendByFB = () => {
-    const array = [];
+    // const array = [];
+    const path = window.location.pathname.split('/');
+    // const newTime = new Date();
+    const idReceive = path[path.length - 1];
     const { getChatInforUserById } = this.props;
-    realtimedb.ref().child('chatchit').on('child_added', (item) => {
-      const TempEndMess = Object.values(item.val());
-      const endMess = TempEndMess[TempEndMess.length - 1];
-      const idArr = item.key.toString().split('+');
+    // realtimedb.ref().child('chatchit').on('child_added', (item) => {
+    //   const TempEndMess = Object.values(item.val());
+    // const endMess = TempEndMess[TempEndMess.length - 1];
+      // const idArr = item.key.toString().split('+');
       // console.log('aaaaaaaaaa', endMess);
 
       // array.push(idArr[1]);
-      Promise.resolve(getChatInforUserById(idArr[1])).then(() => {
+      Promise.resolve(getChatInforUserById(idReceive).then(() => {
         const { chatUserInfor } = this.props;
         // lỗi ở đây
-        array.push({ chatUserInfor, endMess });
+        const array = [];
+        array.push({ chatUserInfor});
         this.setState({
           listKey: array,
         });
-      });
+      }));
       // console.log('aaaaaaaaaaaaaaa', `${item.key }aaa`);
-    });
+    // });
   }
 
   listenMessages = () => {
@@ -138,7 +142,7 @@ export default class FormMessage extends Component {
                                 <small className="small font-weight-bold">25 Dec</small>
                               </div>
 
-                              <p className="font-italic mb-0 text-small">{item.endMess.message}</p>
+                              <p className="font-italic mb-0 text-small">Tin nhắn</p>
                             </div>
                           </div>
                         </Button>
