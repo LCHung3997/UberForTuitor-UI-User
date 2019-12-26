@@ -137,7 +137,16 @@ class ReadOnlyContract extends React.PureComponent {
             const { contractByIdContract } = this.props;
             if (contractByIdContract.hasOwnProperty('detailContract')) {
                 const { sendComplaint } = this.props;
-                sendComplaint(contractByIdContract.detailContract[0].idContract, text);
+                Promise.resolve(sendComplaint(contractByIdContract.detailContract[0].idContract, text))
+                    .then(() => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Đã gửi khiếu nại',
+                        });
+                    })
+                    .then(() => {
+                        window.location.reload();
+                    });
             }
         }
     }
