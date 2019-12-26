@@ -51,56 +51,56 @@ class Register extends React.PureComponent {
     const tokenn = localStorage.token;
 
     const responseFacebook = (response) => {
-      // console.log('responseFb', response);
+       console.log('responseFb', response);
 
-      const { registerRequest } = this.props;
+      // const { registerRequest } = this.props;
 
-      const { name } = response;
-      const gmail = response.email;
-      const password = response.id;
-      const districtId = 0;
-      const gender = 'Nam';
-      const categoryUser = 0;
+      // const { name } = response;
+      // const gmail = response.email;
+      // const password = response.id;
+     // const districtId = 0;
+      // const gender = 'Nam';
+      // const categoryUser = 0;
 
-      Promise.resolve(
-        registerRequest(name, gmail, password, districtId, gender, categoryUser)
-      ).then(() => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Đăng Kí Thành Công',
-          text:
-            'Một đường dẫn kích hoạt tài khoản đã được gửi đến Email của bạn. Xin hãy kiểm tra email và kích hoạt tài khoản để tiếp tục sử dụng trang web!'
-        });
-      });
+      // Promise.resolve(
+        // registerRequest(name, gmail, password, districtId, gender, categoryUser)
+     // ).then(() => {
+       // Swal.fire({
+        //  icon: 'success',
+         // title: 'Đăng Kí Thành Công',
+         // text:
+           // 'Một đường dẫn kích hoạt tài khoản đã được gửi đến Email của bạn. Xin hãy kiểm tra email và kích hoạt tài khoản để tiếp tục sử dụng trang web!'
+        // });
+      // });
     };
 
     const responseGoogle = (response) => {
-      // console.log('responseGG', response);
+      console.log('responseGG', response);
 
-      const { registerRequest } = this.props;
+      // const { registerRequest } = this.props;
 
-      const name = response.w3.ig;
-      const gmail = response.w3.U3;
-      const password = response.w3.Eea;
-      const districtId = 0;
-      const gender = 'Nam';
-      const categoryUser = 0;
+      // const name = response.w3.ig;
+      // const gmail = response.w3.U3;
+      // const password = response.w3.Eea;
+      // const districtId = 0;
+      // const gender = 'Nam';
+     // const categoryUser = 0;
 
-      Promise.resolve(
-        registerRequest(name, gmail, password, districtId, gender, categoryUser)
-      ).then(() => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Đăng Kí Thành Công',
-          text:
-            'Một đường dẫn kích hoạt tài khoản đã được gửi đến Email của bạn. Xin hãy kiểm tra email và kích hoạt tài khoản để tiếp tục sử dụng trang web!',
-          confirmButtonText: 'OK'
-        }).then((result) => {
-          if (result.value) {
-            history.push('/signin');
-          }
-        });
-      });
+      // Promise.resolve(
+        // registerRequest(name, gmail, password, districtId, gender, categoryUser)
+      // ).then(() => {
+        // Swal.fire({
+          // icon: 'success',
+          // title: 'Đăng Kí Thành Công',
+          // text:
+            // 'Một đường dẫn kích hoạt tài khoản đã được gửi đến Email của bạn. Xin hãy kiểm tra email và kích hoạt tài khoản để tiếp tục sử dụng trang web!',
+         // confirmButtonText: 'OK'
+       // }).then((result) => {
+         // if (result.value) {
+           // history.push('/signin');
+         // }
+       // });
+     // });
     };
 
     if (tokenn) {
