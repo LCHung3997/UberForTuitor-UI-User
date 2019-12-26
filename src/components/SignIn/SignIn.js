@@ -89,33 +89,33 @@ class Login extends React.PureComponent {
     const tokenn = localStorage.token;
 
     const responseFacebook = (response) => {
-      // console.log(response);
-      const tokenBlob = new Blob(
-        [JSON.stringify({ access_token: response.accessToken }, null, 2)],
-        { type: 'application/json' }
-      );
+      console.log(response);
+      // st tokenBlob = new Blob(
+       // [JSON.stringify({ access_token: response.accessToken }, null, 2)],
+        // { type: 'application/json' }
+      // );
       // console.log('response', tokenBlob);
       // console.log('response', response.accessToken);
 
-      const options = {
-        method: 'POST',
-        body: tokenBlob,
-        mode: 'cors',
-        cache: 'default',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
-      };
-      fetch('https://uber-for-tuitor-api-user.herokuapp.com/api/auth/facebook', options).then((r) => {
-        const token = r.headers.get('x-auth-token');
-        r.json().then(() => {
-          if (token) {
+      // const options = {
+       // method: 'POST',
+       // body: tokenBlob,
+       // mode: 'cors',
+       // cache: 'default',
+       // headers: {
+        //  Accept: 'application/json',
+         // 'Content-Type': 'application/json'
+        // }
+     // };
+      // fetch('https://uber-for-tuitor-api-user.herokuapp.com/api/auth/facebook', options).then((r) => {
+        // const token = r.headers.get('x-auth-token');
+        // r.json().then(() => {
+          // if (token) {
             // this.setState({ isAuthenticated: true, user, token });
             // console.log('--------------------', token, user);
-          }
-        });
-      });
+         // }
+        //});
+      // });
       // console.log('responseFb', response);
 
       // const { loginRequest } = this.props;
@@ -130,17 +130,17 @@ class Login extends React.PureComponent {
     };
 
     const responseGoogle = (response) => {
-      // console.log('responseGG', response);
+      console.log('responseGG', response);
 
-      const { loginRequest } = this.props;
+      // const { loginRequest } = this.props;
 
-      const gmail = response.w3.U3;
-      const password = response.w3.Eea;
+      // const gmail = response.w3.U3;
+      // const password = response.w3.Eea;
 
-      Promise.resolve(loginRequest(gmail, password)).then(() => {
-        history.push('/');
-        window.location.reload();
-      });
+     //  Promise.resolve(loginRequest(gmail, password)).then(() => {
+        // history.push('/');
+         // dow.location.reload();
+      //
     };
 
     const { isSigIn } = this.props;
